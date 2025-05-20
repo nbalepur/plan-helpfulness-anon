@@ -119,4 +119,3 @@ for idx, data in enumerate(aggr_agent):
 final_model_ds = datasets.DatasetDict({k: datasets.Dataset.from_dict(v) for k, v in final_model_ds.items()})
 final_ds = datasets.DatasetDict({k: datasets.concatenate_datasets([ds[k], final_model_ds[k]], axis = 1) for k in ['math', 'trivia']})
 print(final_ds['math'].filter(lambda ex: 'Ittymangnark' in ex['question'])['B_model_accuracies'])
-#final_ds.save_to_disk('/fs/clip-quiz/nbalepur/true-helpfulness/model_code/data/plan_inference_with_models2')
