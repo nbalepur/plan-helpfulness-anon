@@ -50,7 +50,7 @@ for split in ['math', 'trivia']:
     print("Split:", split)
     print('\n\n')
     for m in models:
-        f = f'/fs/clip-quiz/nbalepur/true-helpfulness/model_code/results/{m}/{split}/run_1/reward_model.jsonl'
+        f = f'.../results/{m}/{split}/run_1/reward_model.jsonl'
         out = load_json(f)
         winners = [x['raw_text']['winner'] for x in out]
 
