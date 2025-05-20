@@ -3,10 +3,9 @@ import json
 import numpy as np
 from sklearn.metrics import accuracy_score
 
-plan_ds = datasets.load_dataset('nbalepur/planorama_irt_swap_oneslope', cache_dir='/fs/clip-scratch/nbalepur/cache')
-mnemonic_ds = datasets.load_from_disk('/fs/clip-quiz/nbalepur/true-helpfulness/model_code/data/mnemonic_inference_with_learn')
+plan_ds = datasets.load_dataset(...)
 
-ds = {'math': plan_ds['math'], 'trivia': plan_ds['trivia'], 'mnemonic': mnemonic_ds['mnemonic']}
+ds = {'math': plan_ds['math'], 'trivia': plan_ds['trivia']}
 
 def load_json(f):
     with open(f, 'r') as json_file:
@@ -53,7 +52,7 @@ for split in ['math', 'trivia']:
     model_pairwise = ds[split]['model_comparison']
 
     for m in models:
-        f = f'/fs/clip-quiz/nbalepur/true-helpfulness/model_code/results/{m}/{split}/run_1/reward_model.jsonl'
+        f = f'/{m}/{split}/run_1/reward_model.jsonl'
         out = load_json(f)
         winners = [x['raw_text']['winner'] for x in out]
         for idx, w in enumerate(winners):
@@ -71,29 +70,4 @@ for split in ['math', 'trivia']:
         print('\n\n')
 
     print('\n\n', '====================', '\n\n')
-
-
-# import numpy as np
-# for split in ['mnemonic']:
-    
-#     human_pairwise = ds[split]['pairwise_comparison']
-#     learn_a, learn_b = ds[split]['learn_a'], ds[split]['learn_b']
-#     human_a_help, human_b_help = learn_a, learn_b
-#     valid_idxs = [idx for idx in range(len(learn_a)) if human_pairwise[idx] != 'Tie' and learn_a[idx] != [] and learn_b[idx] != [] and np.mean(learn_a[idx]) != np.mean(learn_b[idx])]
-#     human_downstream = ['A' if np.mean(human_a_help[idx]) > np.mean(human_b_help[idx]) else 'B' for idx in range(len(learn_a))]
-
-#     print("Split:", split)
-#     print('\n\n')
-#     for m in models:
-#         f = f'/fs/clip-quiz/nbalepur/true-helpfulness/model_code/results/{m}/{split}/run_1/reward_model.jsonl'
-#         out = load_json(f)
-#         winners = [x['raw_text']['winner'] for x in out]
-
-#         valid_idxs = [idx for idx in range(len(winners)) if human_pairwise[idx] != 'Tie' and human_pairwise[idx] != 'Tie']
-
-#         print("Model:", m)
-#         print("Helps Humans:", acc_score(winners, human_downstream))
-#         print("Humans Pick:", acc_score(winners, human_pairwise))
-
-#         print('\n\n')
 
