@@ -2,7 +2,7 @@
 import json
 import numpy as np
 
-res_dir = '/fs/clip-quiz/nbalepur/true-helpfulness/model_code/results'
+res_dir = ''
 model = 'gpt-4o'
 pairwise_run_name = 'run_1'
 agent_run_names = ['run_1', 'run_2', 'run_3']
@@ -63,7 +63,7 @@ def judge_answer(candidate_answer, question, reference_answers, is_math):
 
     return candidate_answer in reference_answers or pedant.evaluate(reference_answers, candidate_answer, question)
 
-ds = datasets.load_from_disk('/fs/clip-quiz/nbalepur/true-helpfulness/model_code/data/plan_inference')
+ds = datasets.load_from_disk(...)
 
 aggr_agent = [{'A': {'user_id': [], 'accuracies': [], 'times': []}, 'B': {'user_id': [], 'accuracies': [], 'times': []}} for _ in range(300)]
 for split in ['trivia', 'math']:
